@@ -1,0 +1,71 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A7610D18-BF21-4211-8E86-A5CB3F7B243E}|OnlineKiosk_DAL\\OnlineKiosk_DAL.csproj|c:\\voor school\\sem2_project1\\onlinekiosk_ui\\onlinekiosk_dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A7610D18-BF21-4211-8E86-A5CB3F7B243E}|OnlineKiosk_DAL\\OnlineKiosk_DAL.csproj|solutionrelative:onlinekiosk_dal\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{528524F6-4274-4A7F-8FB2-9A15BDA97E6B}|OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj|c:\\voor school\\sem2_project1\\onlinekiosk_ui\\onlinekiosk_logic\\onlinekiosk_logic.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{528524F6-4274-4A7F-8FB2-9A15BDA97E6B}|OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj|solutionrelative:onlinekiosk_logic\\onlinekiosk_logic.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{528524F6-4274-4A7F-8FB2-9A15BDA97E6B}|OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj|c:\\voor school\\sem2_project1\\onlinekiosk_ui\\onlinekiosk_logic\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{528524F6-4274-4A7F-8FB2-9A15BDA97E6B}|OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj|solutionrelative:onlinekiosk_logic\\class1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "OnlineKiosk_Logic",
+              "DocumentMoniker": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj",
+              "RelativeDocumentMoniker": "OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj",
+              "ToolTip": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj",
+              "RelativeToolTip": "OnlineKiosk_Logic\\OnlineKiosk_Logic.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-09-28T08:45:19.198Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_DAL\\Class1.cs",
+              "RelativeDocumentMoniker": "OnlineKiosk_DAL\\Class1.cs",
+              "ToolTip": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_DAL\\Class1.cs",
+              "RelativeToolTip": "OnlineKiosk_DAL\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T08:42:47.888Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Class1.cs",
+              "DocumentMoniker": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_Logic\\Class1.cs",
+              "RelativeDocumentMoniker": "OnlineKiosk_Logic\\Class1.cs",
+              "ToolTip": "C:\\Voor School\\Sem2_Project1\\OnlineKiosk_UI\\OnlineKiosk_Logic\\Class1.cs",
+              "RelativeToolTip": "OnlineKiosk_Logic\\Class1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-09-28T08:41:04.735Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

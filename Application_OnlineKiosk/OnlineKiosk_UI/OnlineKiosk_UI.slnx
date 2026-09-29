@@ -1,5 +1,0 @@
-<Solution>
-  <Project Path="OnlineKiosk_DAL/OnlineKiosk_DAL.csproj" />
-  <Project Path="OnlineKiosk_Logic/OnlineKiosk_Logic.csproj" />
-  <Project Path="OnlineKiosk_UI/OnlineKiosk_UI.csproj" />
-</Solution>

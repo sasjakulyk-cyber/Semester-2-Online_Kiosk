@@ -1,3 +1,6 @@
+using OnlineKiosk_Logic;
+using OnlineKiosk_DAL;
+
 namespace OnlineKiosk_UI
 {
     public class Program
@@ -8,6 +11,8 @@ namespace OnlineKiosk_UI
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<IProductService, ProductsService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             var app = builder.Build();
 

@@ -1,0 +1,92 @@
+﻿@page
+@model OnlineKiosk_UI.Pages.OrderPageModel
+@{
+    ViewData["Title"] = "Bestelkiosk";
+}
+
+<div class="kiosk-page">
+
+    <header class="topbar">
+        <h1>Categories</h1>
+
+        <div class="topbar-actions">
+            <a class="pill-button" asp-page="/Account/Login">
+                Sign in
+            </a>
+
+            <a class="pill-button cart-button" asp-page="/Cart">
+                <span>Your cart</span>
+                <span class="cart-icon">🛒</span>
+            </a>
+        </div>
+    </header>
+
+    <main class="kiosk-content">
+
+        <!-- Categories -->
+        <aside class="category-sidebar">
+
+            <button class="category-button active"
+                    type="button"
+                    aria-label="Category 1">
+                <span class="category-placeholder">×</span>
+            </button>
+
+            <button class="category-button"
+                    type="button"
+                    aria-label="Category 2">
+                <span class="category-placeholder">×</span>
+            </button>
+
+            <button class="category-button"
+                    type="button"
+                    aria-label="Category 3">
+                <span class="category-placeholder">×</span>
+            </button>
+
+            <button class="category-button"
+                    type="button"
+                    aria-label="Category 4">
+                <span class="category-placeholder">×</span>
+            </button>
+
+            <button class="category-button"
+                    type="button"
+                    aria-label="Category 5">
+                <span class="category-placeholder">×</span>
+            </button>
+
+        </aside>
+
+        <!-- Products -->
+        <section class="product-grid">
+
+            @for (int i = 1; i <= 6; i++)
+            {
+                <article class="product-card">
+
+                    <a href="#" class="product-image-link">
+                        <div class="product-image-placeholder">
+                            <span>×</span>
+                        </div>
+                    </a>
+
+                    <div class="product-info">
+                        <div>
+                            <h2 class="product-name">Product @i</h2>
+                            <p class="product-price">€ 0,00</p>
+                        </div>
+
+                        <button class="add-cart-button"
+                                type="button">
+                            Add To Cart
+                        </button>
+                    </div>
+
+                </article>
+            }
+
+        </section>
+
+    </main>
+</div>

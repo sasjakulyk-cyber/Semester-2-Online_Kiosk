@@ -211,7 +211,8 @@ body {
         background: #d3d3d3;
     }
 
-    .add-cart-button:active {
+    .add-cart-button:active,
+    .variant-card:active {
         transform: translateY(1px);
     }
 
@@ -272,5 +273,239 @@ body {
     .product-grid {
         grid-template-columns: 1fr;
         padding: 0;
+    }
+}
+/* ========================================
+   PRODUCT DETAILS
+   ======================================== */
+
+.detail-page {
+    max-width: 1250px;
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: 80px 70px 40px;
+    background: #fff;
+}
+
+
+/* ---------- Product header ---------- */
+
+.product-header {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 35px;
+    align-items: start;
+    margin-bottom: 100px;
+}
+
+.detail-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 260px;
+    height: 160px;
+    background: #d5d5d5;
+    overflow: hidden;
+    font-size: 130px;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.detail-information h1 {
+    margin: -8px 0 20px;
+    font-size: 42px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.detail-description {
+    max-width: 800px;
+    margin: 0;
+    font-size: 23px;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.allergens {
+    margin-top: 20px;
+    font-size: 17px;
+}
+
+
+/* ---------- Variants ---------- */
+
+.variant-section {
+    border-top: 1px solid #ccc;
+    padding-top: 35px;
+}
+
+    .variant-section h2 {
+        margin: 0 0 35px;
+        font-size: 27px;
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+.variant-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.variant-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px solid transparent;
+    background: #fff;
+    color: #111;
+    font-family: inherit;
+    cursor: pointer;
+    transition: 0.15s ease;
+}
+
+    .variant-card:hover {
+        background: #f7f7f7;
+    }
+
+    .variant-card.selected {
+        border-color: #9b9200;
+        background: #f7f7f7;
+    }
+
+.variant-image-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 160px;
+    height: 110px;
+    margin-bottom: 20px;
+    background: #ddd;
+    font-size: 120px;
+    font-weight: 100;
+    line-height: 1;
+}
+
+.variant-name {
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.variant-price {
+    margin-top: 5px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+
+/* Quantity controls */
+
+.quantity-control {
+    display: flex;
+    height: 60px;
+    width: 230px;
+    border: 1px solid #b5b5b5;
+    border-radius: 6px;
+    overflow: hidden;
+    float: left;
+}
+
+.quantity-button {
+    width: 65px;
+    border: none;
+    background: #d9d9d9;
+    color: #222;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+    .quantity-button:hover {
+        background: #c5c5c5;
+    }
+
+.quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    background: #ffffff;
+    font-size: 25px;
+}
+
+
+/* Add to cart */
+
+.add-detail-cart {
+    display: flex;
+    align-items: stretch;
+    padding: 0;
+    border: none;
+    border-radius: 7px;
+    overflow: hidden;
+    background: #d9d9d9;
+    color: #222;
+    font-size: 23px;
+    font-weight: 700;
+    cursor: pointer;
+    float: right;
+}
+
+    .add-detail-cart:hover {
+        background: #c5c5c5;
+    }
+
+    .add-detail-cart > span:first-child {
+        padding: 17px 25px;
+    }
+
+.add-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 65px;
+    padding: 17px;
+    background: #bcbcbc;
+    color: #222;
+}
+
+.add-detail-cart:hover .add-icon {
+    background: #aaaaaa;
+}
+
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 850px) {
+
+    .detail-page {
+        padding: 40px 25px;
+    }
+
+    .product-header {
+        grid-template-columns: 1fr;
+        margin-bottom: 60px;
+    }
+
+    .detail-image-placeholder {
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .detail-information h1 {
+        font-size: 32px;
+    }
+
+    .detail-description {
+        font-size: 19px;
+    }
+
+    .variant-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .detail-actions {
+        gap: 25px;
     }
 }

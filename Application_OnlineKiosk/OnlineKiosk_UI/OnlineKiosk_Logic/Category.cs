@@ -12,11 +12,15 @@ namespace OnlineKiosk_Logic
         public string Name { get; private set; }
         public string ImageURL { get; private set; }
 
+        public bool IsActive { get; set; } = false;
+
         public Category(int categoryId, string name, string imageURL)
         {
             CategoryId = categoryId;
             Name = name;
             ImageURL = imageURL;
         }
+
+
     }
 }

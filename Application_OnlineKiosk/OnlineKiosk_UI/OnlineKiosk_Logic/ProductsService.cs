@@ -15,19 +15,28 @@ namespace OnlineKiosk_Logic
             _ProductRepository = productRepository;
         }
 
-        public async Task<List<Category>> GetCategories()
+        public List<Category> GetCategories()
         {
-            return await _ProductRepository.GetCategories();
+            try
+            {
+                return _ProductRepository.GetCategories();
+
+            }
+            catch (Exception ex)
+            {
+                // Log the exception or handle it as needed
+                throw new ApplicationException("An error occurred while retrieving categories.", ex);
+            }
         }
 
-        public async Task<List<Product>> GetProductsByCategory(int categoryId)
+        public List<Product> GetProductsByCategory(int categoryId)
         {
-            return await _ProductRepository.GetProductsByCategory(categoryId);
+            return _ProductRepository.GetProductsByCategory(categoryId);
         }
 
-        public async Task<Product?> GetProductDetailsByProductId(int productId)
+        public Product? GetProductDetailsByProductId(int productId)
         {
-            return await _ProductRepository.GetProductDetailsByProductId(productId);
+            return _ProductRepository.GetProductDetailsByProductId(productId);
         }
     }
 }

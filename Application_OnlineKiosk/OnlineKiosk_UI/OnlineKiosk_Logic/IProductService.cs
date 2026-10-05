@@ -8,8 +8,8 @@ namespace OnlineKiosk_Logic
 {
     public interface IProductService
     {
-        Task<List<Category>> GetCategories();
-        Task<List<Product>> GetProductsByCategory(int categoryId);
-        Task<Product?> GetProductDetailsByProductId(int productId);
+        List<Category> GetCategories();
+        List<Product> GetProductsByCategory(int categoryId);
+        Product? GetProductDetailsByProductId(int productId);
     }
 }

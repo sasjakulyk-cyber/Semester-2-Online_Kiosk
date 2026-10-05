@@ -9,26 +9,53 @@ namespace OnlineKiosk_UI.Pages
         private readonly ILogger<IndexModel> _logger;
         private readonly IProductService _productService;
 
+        [BindProperty(SupportsGet = true)]
+        public int? ActiveCategoryId { get; set; }
+
+        public List<Category> Categories { get; set; } = new List<Category>();
+        public List<Product> Products { get; set; } = new List<Product>();
+
         public IndexModel(ILogger<IndexModel> logger, IProductService productService)
         {
             _logger = logger;
             _productService = productService;
         }
 
+        //bool SelectIf(Category c)
+        //{
+        //    return (c.CategoryId == ActiveCategoryId);
+        //}
+
+        //Category FirstOrDefault(Iterable<Category> categories, Category defaultCategory)
+        //{
+        //    foreach(var c in categories)
+        //    {
+        //        if (SelectIf(c))
+        //        {
+        //            return c;
+        //        }
+        //    }
+        //    return defaultCategory;
+        //}
+
         public void OnGet()
         {
-            _productService.GetCategories().ContinueWith(task =>
+            Categories = _productService.GetCategories();
+            if (Categories.Count > 0)
             {
-                if (task.IsCompletedSuccessfully)
+                if (!ActiveCategoryId.HasValue)
                 {
-                    var categories = task.Result;
-                    // Do something with the categories, e.g., store them in a property for the view
+                    ActiveCategoryId = Categories[0].CategoryId;
                 }
-                else
-                {
-                    _logger.LogError(task.Exception, "Error retrieving categories");
-                }
-            });
+
+                Categories.FirstOrDefault(c => c.CategoryId == ActiveCategoryId, Categories[0]).IsActive = true;
+            }
+            else
+            {
+                _logger.LogWarning("No categories found.");
+            }
+
+            Products = _productService.GetProductsByCategory(ActiveCategoryId ?? Categories[0].CategoryId);
         }
     }
 }

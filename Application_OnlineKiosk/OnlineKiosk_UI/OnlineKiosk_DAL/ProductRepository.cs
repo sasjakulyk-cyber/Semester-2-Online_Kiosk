@@ -1,48 +1,54 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Reflection.Metadata.Ecma335;
-using Microsoft.Data.SqlClient;
-using System.Data;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using OnlineKiosk_Logic;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Reflection.Metadata.Ecma335;
 
 namespace OnlineKiosk_DAL
 {
-    public class ProductRepository
+    public class ProductRepository : IProductRepository
     {
+        private readonly ILogger<ProductRepository> _logger;
         private readonly string _connectionString;
 
-        public ProductRepository(IConfiguration configuration)
+        public ProductRepository(IConfiguration configuration, ILogger<ProductRepository> logger)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection");
-            if (string.IsNullOrEmpty(_connectionString))
-            {
-                throw new ArgumentNullException(nameof(configuration), "Connection string is missing in configuration.");
-            }
-
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                ?? throw new ArgumentNullException(nameof(configuration), "Connection string is missing in configuration.");
+            _logger = logger;
         }
 
         // Implement methods to interact with the database, e.g., GetProducts, AddProduct, etc.
-        public async Task<List<Category>> GetCategories()
+        public List<Category> GetCategories()
         {
             var categories = new List<Category>();
 
-
-            await using var connection = new SqlConnection(_connectionString);
-            await connection.OpenAsync();
-
-            var query = "SELECT * FROM [dbo].[Category]";
-            await using var command = new SqlCommand(query, connection);
-            await using var reader = await command.ExecuteReaderAsync();
-
-            while (await reader.ReadAsync())
+            try
             {
-                categories.Add(new Category
-                (
-                    reader.GetInt32("Id"),
-                    reader.GetString("categoryName"),
-                    reader.GetString("imageURL")
-                ));
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                var query = "SELECT * FROM [dbo].[Category]";
+                using var command = new SqlCommand(query, connection);
+                using var reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    categories.Add(new Category
+                    (
+                        reader.GetInt32("Id"),
+                        reader.GetString("categoryName"),
+                        reader.IsDBNull("imageURL") ? string.Empty : reader.GetString("imageURL")
+                    ));
+                }
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
             return categories;
         }
@@ -73,12 +79,12 @@ namespace OnlineKiosk_DAL
                     reader.GetInt32("Id"),
                     reader.GetString("Name"),
                     reader.GetString("Description"),
-                    reader.GetString("ImageURL")
+                    reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
                 );
                 product.AddVariant(
                     reader.GetInt32("VariantId"),
                     reader.GetString("VariantDescription"),
-                    reader.GetDouble("Price")
+                    reader.GetDecimal("Price")
                 );
                 products.Add(product);
             }
@@ -94,12 +100,12 @@ namespace OnlineKiosk_DAL
             var query = "SELECT p.Id, p.title as Name, p.Description, p.ImageURL, " +
                         "       pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
                         "FROM [dbo].[Product] as p " +
-                        "JOIN [dbo].[ProductVariant] as pv ON p.Id = pv.ProductId " +
+                        "INNER JOIN [dbo].[ProductVariant] as pv ON p.Id = pv.ProductId " +
                         "WHERE p.Id = @ProductId";
             using var command = new SqlCommand(query, connection);
             command.Parameters.AddWithValue("@ProductId", productId);
             using var reader = command.ExecuteReader();
-            if (reader.Read())
+            while (reader.Read())
             {
                 if (product == null)
                 {
@@ -108,15 +114,18 @@ namespace OnlineKiosk_DAL
                         reader.GetInt32("Id"),
                         reader.GetString("Name"),
                         reader.GetString("Description"),
-                        reader.GetString("ImageURL")
+                        reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
                     );
+                    _logger.LogWarning("Add new product {}", reader.GetInt32("Id"));
                 }
                 product.AddVariant(
                     reader.GetInt32("VariantId"),
                     reader.GetString("VariantDescription"),
-                    reader.GetDouble("Price")
+                    reader.GetDecimal("Price")
                 );
+                _logger.LogWarning("Read variant {}", reader.GetInt32("VariantId"));
             }
+            //product.AddAllergens(GetProductAllergensByProductId(productId))
             return product;
         }
     }

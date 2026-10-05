@@ -10,10 +10,10 @@ namespace OnlineKiosk_Logic
     {
         public int VariantId { get; private set; }
         public string Description { get; private set; }
-        public double Price { get; private set; }
+        public decimal Price { get; private set; }
         public Product product { get; private set; }
 
-        public ProductVariant(int variantId, string description, double price, Product product)
+        public ProductVariant(int variantId, string description, decimal price, Product product)
         {
             VariantId = variantId;
             Description = description;

@@ -56,37 +56,45 @@ namespace OnlineKiosk_DAL
         public List<Product> GetProductsByCategory(int categoryId)
         {
             var products = new List<Product>();
-            using var connection = new SqlConnection(_connectionString);
-            connection.Open();
-
-            // Select one variant per product — the one with the lowest price. Use CROSS APPLY to pick TOP 1
-            // This produces deterministic results on SQL Server without requiring every selected column to be grouped.
-            var query = "SELECT p.Id, p.title as Name, p.Description, p.ImageURL, " +
-                        "pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
-                        "FROM [dbo].[Product] as p " +
-                        "CROSS APPLY (" +
-                        "   SELECT TOP 1 * FROM [dbo].[ProductVariant] pv2 " +
-                        "   WHERE pv2.ProductId = p.Id ORDER BY pv2.Price ASC, pv2.Id ASC" +
-                        ") pv " +
-                        "WHERE p.CategoryId = @CategoryId";
-            using var command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@CategoryId", categoryId);
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
+            try 
             {
-                var product = new Product
-                (
-                    reader.GetInt32("Id"),
-                    reader.GetString("Name"),
-                    reader.GetString("Description"),
-                    reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
-                );
-                product.AddVariant(
-                    reader.GetInt32("VariantId"),
-                    reader.GetString("VariantDescription"),
-                    reader.GetDecimal("Price")
-                );
-                products.Add(product);
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                // Select one variant per product — the one with the lowest price. Use CROSS APPLY to pick TOP 1
+                // This produces deterministic results on SQL Server without requiring every selected column to be grouped.
+                var query = "SELECT p.Id, p.title as Name, p.Description, p.ImageURL, " +
+                            "pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
+                            "FROM [dbo].[Product] as p " +
+                            "CROSS APPLY (" +
+                            "   SELECT TOP 1 * FROM [dbo].[ProductVariant] pv2 " +
+                            "   WHERE pv2.ProductId = p.Id ORDER BY pv2.Price ASC, pv2.Id ASC" +
+                            ") pv " +
+                            "WHERE p.CategoryId = @CategoryId";
+                using var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@CategoryId", categoryId);
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    var product = new Product
+                    (
+                        reader.GetInt32("Id"),
+                        reader.GetString("Name"),
+                        reader.GetString("Description"),
+                        reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
+                    );
+                    product.AddVariant(
+                        reader.GetInt32("VariantId"),
+                        reader.GetString("VariantDescription"),
+                        reader.GetDecimal("Price")
+                    );
+                    products.Add(product);
+                }
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
             return products;
         }
@@ -94,36 +102,44 @@ namespace OnlineKiosk_DAL
         public Product? GetProductDetailsByProductId(int productId)
         {
             Product? product = null;
-            using var connection = new SqlConnection(_connectionString);
-            connection.Open();
-
-            var query = "SELECT p.Id, p.title as Name, p.Description, p.ImageURL, " +
-                        "       pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
-                        "FROM [dbo].[Product] as p " +
-                        "INNER JOIN [dbo].[ProductVariant] as pv ON p.Id = pv.ProductId " +
-                        "WHERE p.Id = @ProductId";
-            using var command = new SqlCommand(query, connection);
-            command.Parameters.AddWithValue("@ProductId", productId);
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                if (product == null)
+                using var connection = new SqlConnection(_connectionString);
+                connection.Open();
+
+                var query = "SELECT p.Id, p.title as Name, p.Description, p.ImageURL, " +
+                            "       pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
+                            "FROM [dbo].[Product] as p " +
+                            "INNER JOIN [dbo].[ProductVariant] as pv ON p.Id = pv.ProductId " +
+                            "WHERE p.Id = @ProductId";
+                using var command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@ProductId", productId);
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    product = new Product
-                    (
-                        reader.GetInt32("Id"),
-                        reader.GetString("Name"),
-                        reader.GetString("Description"),
-                        reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
+                    if (product == null)
+                    {
+                        product = new Product
+                        (
+                            reader.GetInt32("Id"),
+                            reader.GetString("Name"),
+                            reader.GetString("Description"),
+                            reader.IsDBNull("ImageURL") ? string.Empty : reader.GetString("ImageURL")
+                        );
+                        _logger.LogWarning("Add new product {}", reader.GetInt32("Id"));
+                    }
+                    product.AddVariant(
+                        reader.GetInt32("VariantId"),
+                        reader.GetString("VariantDescription"),
+                        reader.GetDecimal("Price")
                     );
-                    _logger.LogWarning("Add new product {}", reader.GetInt32("Id"));
+                    _logger.LogWarning("Read variant {}", reader.GetInt32("VariantId"));
                 }
-                product.AddVariant(
-                    reader.GetInt32("VariantId"),
-                    reader.GetString("VariantDescription"),
-                    reader.GetDecimal("Price")
-                );
-                _logger.LogWarning("Read variant {}", reader.GetInt32("VariantId"));
+            }
+            catch (SqlException ex)
+            {
+                _logger.LogError(ex, ex.Message);
+                throw ex;
             }
             //product.AddAllergens(GetProductAllergensByProductId(productId))
             return product;

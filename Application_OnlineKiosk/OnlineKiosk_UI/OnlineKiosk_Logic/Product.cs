@@ -2,13 +2,13 @@
 {
     public class Product
     {
-        public int ProductId { get; set; }
-        public string Name { get; set; }
-        public string Description { get; set; }
-        public string ImageURL { get; set; }
-        public List<string> Allergens { get; set; }
+        public int ProductId { get; private set; }
+        public string Name { get; private set; }
+        public string Description { get; private set; }
+        public string ImageURL { get; private set; }
+        public List<string> Allergens { get; private set; }
 
-        public List<ProductVariant> Variants { get; set; }
+        public List<ProductVariant> Variants { get; private set; }
 
         public ProductVariant? GetDefaultVariant()
         {

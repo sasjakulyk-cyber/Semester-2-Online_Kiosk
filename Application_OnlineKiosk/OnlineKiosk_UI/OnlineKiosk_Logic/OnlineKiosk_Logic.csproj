@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\OnlineKiosk_Domain\OnlineKiosk_Domain.csproj" />
+  </ItemGroup>
+
 </Project>

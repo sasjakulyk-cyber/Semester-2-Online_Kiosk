@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OnlineKiosk_Domain.Interfaces;
+using OnlineKiosk_Domain.Data;
 using OnlineKiosk_Logic;
 
 namespace OnlineKiosk_UI.Pages
@@ -10,7 +12,7 @@ namespace OnlineKiosk_UI.Pages
         private readonly IProductService _productservice;
 
         public List<Category> Categories { get; set; } = new List<Category>();
-        public Product ProductInfo { get; set; }
+        public ProductModel ProductInfo { get; set; }
 
         public DetailsPageModel(ILogger<DetailsPageModel> logger, IProductService productservice)
         {
@@ -24,7 +26,7 @@ namespace OnlineKiosk_UI.Pages
             var product = _productservice.GetProductDetailsByProductId(id);
             if (product != null)
             {
-                ProductInfo = product;
+                ProductInfo = new ProductModel(product);
             }
             else
             {

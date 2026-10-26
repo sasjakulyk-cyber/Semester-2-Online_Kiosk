@@ -1,5 +1,7 @@
-using OnlineKiosk_Logic;
+using OnlineKiosk_Domain;
 using OnlineKiosk_DAL;
+using OnlineKiosk_Logic;
+using OnlineKiosk_Domain.Interfaces;
 
 namespace OnlineKiosk_UI
 {
@@ -13,6 +15,8 @@ namespace OnlineKiosk_UI
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<IProductService, ProductsService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+
+            builder.Services.AddSession();
 
             var app = builder.Build();
 
@@ -30,6 +34,8 @@ namespace OnlineKiosk_UI
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.MapRazorPages();
 

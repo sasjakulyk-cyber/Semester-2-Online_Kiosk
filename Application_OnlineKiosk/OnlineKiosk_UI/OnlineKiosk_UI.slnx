@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="OnlineKiosk_DAL/OnlineKiosk_DAL.csproj" />
+  <Project Path="OnlineKiosk_Domain/OnlineKiosk_Domain.csproj" Id="3ef2daea-88e8-4682-b550-eea4941091a1" />
   <Project Path="OnlineKiosk_Logic/OnlineKiosk_Logic.csproj" />
   <Project Path="OnlineKiosk_UI/OnlineKiosk_UI.csproj" />
 </Solution>

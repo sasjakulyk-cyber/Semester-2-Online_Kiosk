@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using OnlineKiosk_Logic;
+using OnlineKiosk_Domain.Data;
+using OnlineKiosk_Domain.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -48,7 +49,7 @@ namespace OnlineKiosk_DAL
             catch (SqlException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw ex;
+                throw new Exception("An error occurred while retrieving categories from the database.", ex);
             }
             return categories;
         }
@@ -94,7 +95,7 @@ namespace OnlineKiosk_DAL
             catch (SqlException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw ex;
+                throw new Exception("An error occurred while retrieving products from the database.", ex);
             }
             return products;
         }
@@ -139,7 +140,7 @@ namespace OnlineKiosk_DAL
             catch (SqlException ex)
             {
                 _logger.LogError(ex, ex.Message);
-                throw ex;
+                throw new Exception($"An error occurred while retrieving product details for product ID {productId} from the database.", ex);
             }
             //product.AddAllergens(GetProductAllergensByProductId(productId))
             return product;

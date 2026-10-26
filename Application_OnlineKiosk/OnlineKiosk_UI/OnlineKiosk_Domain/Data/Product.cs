@@ -1,4 +1,4 @@
-﻿namespace OnlineKiosk_Logic
+﻿namespace OnlineKiosk_Domain.Data
 {
     public class Product
     {
@@ -9,20 +9,6 @@
         public List<string> Allergens { get; private set; }
 
         public List<ProductVariant> Variants { get; private set; }
-
-        public ProductVariant? GetDefaultVariant()
-        {
-            return Variants.OrderBy(v => v.Price).FirstOrDefault();
-        }
-        public string DefaultPrice()
-        {
-            return GetDefaultVariant()?.Price.ToString("0.00") ?? "0.00";
-        }
-
-        public string DefaultVariantDescription()
-        {
-            return GetDefaultVariant()?.Description ?? "";
-        }
 
         public Product(int productId, string name, string description, string imageURL)
         {

@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using OnlineKiosk_Domain.Interfaces;
+using OnlineKiosk_Domain.Data;
 using OnlineKiosk_Logic;
 
 namespace OnlineKiosk_UI.Pages
@@ -13,7 +15,7 @@ namespace OnlineKiosk_UI.Pages
         public int? ActiveCategoryId { get; set; }
 
         public List<Category> Categories { get; set; } = new List<Category>();
-        public List<Product> Products { get; set; } = new List<Product>();
+        public List<ProductModel> Products { get; set; } = new List<ProductModel>();
 
         public IndexModel(ILogger<IndexModel> logger, IProductService productService)
         {
@@ -49,13 +51,14 @@ namespace OnlineKiosk_UI.Pages
                 }
 
                 Categories.FirstOrDefault(c => c.CategoryId == ActiveCategoryId, Categories[0]).IsActive = true;
+
+                Products = _productService.GetProductsByCategory(ActiveCategoryId.Value).Select(p => new ProductModel(p)).ToList();
             }
             else
             {
+                // ToDo Handle the case where there are no categories available (e.g., show a message or redirect).
                 _logger.LogWarning("No categories found.");
             }
-
-            Products = _productService.GetProductsByCategory(ActiveCategoryId ?? Categories[0].CategoryId);
         }
     }
 }

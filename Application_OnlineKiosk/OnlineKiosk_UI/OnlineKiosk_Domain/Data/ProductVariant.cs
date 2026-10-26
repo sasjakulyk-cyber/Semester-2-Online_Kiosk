@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineKiosk_Logic
+namespace OnlineKiosk_Domain.Data
 {
     public class ProductVariant
     {

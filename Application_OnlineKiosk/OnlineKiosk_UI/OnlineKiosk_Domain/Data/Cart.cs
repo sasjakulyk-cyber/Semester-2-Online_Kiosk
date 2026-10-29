@@ -19,7 +19,7 @@ namespace OnlineKiosk_Domain.Data
             Items = items ?? new List<CartItem>();
         }
 
-        public Cart(int cartId, DateTime createdAt, List<CartItem> items)
+        public Cart(int cartId, DateTime createdAt, List<CartItem> items) // Constructor for implementing manager funcions
         {
             CartId = cartId;
             CreatedAt = createdAt;
@@ -28,7 +28,7 @@ namespace OnlineKiosk_Domain.Data
 
         public void AddItem(CartItem item)
         {
-            var existingItem = Items.FirstOrDefault(i => i.Item.VariantId == item.Item.VariantId);
+            var existingItem = Items.FirstOrDefault(i => i.VariantId == item.VariantId);
             if (existingItem != null)
             {
                 existingItem.IncreaseQuantity(item.Quantity);

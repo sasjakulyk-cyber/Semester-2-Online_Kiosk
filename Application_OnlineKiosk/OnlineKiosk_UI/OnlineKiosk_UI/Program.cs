@@ -2,6 +2,7 @@ using OnlineKiosk_Domain;
 using OnlineKiosk_DAL;
 using OnlineKiosk_Logic;
 using OnlineKiosk_Domain.Interfaces;
+using OnlineKiosk_UI.Services;
 
 namespace OnlineKiosk_UI
 {
@@ -15,6 +16,10 @@ namespace OnlineKiosk_UI
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<IProductService, ProductsService>();
             builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<ICartStorage, SessionCartStorage>();
+            builder.Services.AddScoped<ICartService, CartService>();
+            builder.Services.AddScoped<ICartRepository, CartRepository>();
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddSession();
 
@@ -33,9 +38,8 @@ namespace OnlineKiosk_UI
 
             app.UseRouting();
 
-            app.UseAuthorization();
-
             app.UseSession();
+            app.UseAuthorization();
 
             app.MapRazorPages();
 

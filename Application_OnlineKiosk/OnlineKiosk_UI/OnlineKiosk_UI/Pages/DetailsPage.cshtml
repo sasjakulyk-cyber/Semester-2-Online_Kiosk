@@ -2,105 +2,109 @@
 @model OnlineKiosk_UI.Pages.DetailsPageModel
 @{
 }
-<!-- Categories -->
-<aside class="category-sidebar">
-    <header class="topbar">
-        <h1>Category</h1>
-    </header>
+<main class="kiosk-content">
 
-    @foreach (var category in Model.Categories)
-    {
-        <form method="get" asp-page="Index">
-            <div class="category-name">
-                @category.Name
-                <button class="category-button @(category.IsActive ? "active" : "")"
-                        type="submit"
-                        name="ActiveCategoryId"
-                        value="@category.CategoryId"
-                        aria-label="@category.Name">
-                    <span class="category-placeholder"></span>
-                </button>
-            </div>
-        </form>
-    }
-</aside>
+    <!-- Categories -->
+    <aside class="category-sidebar">
+        <header class="topbar">
+            <h1>Category</h1>
+        </header>
 
-<!-- Producrt Details -->
-<div class="detail-page">
+        @foreach (var category in Model.Categories)
+        {
+            <form method="get" asp-page="Index">
+                <div class="category-name">
+                    @category.Name
+                    <button class="category-button @(category.IsActive ? "active" : "")"
+                            type="submit"
+                            name="ActiveCategoryId"
+                            value="@category.CategoryId"
+                            aria-label="@category.Name">
+                        <span class="category-placeholder"></span>
+                    </button>
+                </div>
+            </form>
+        }
+    </aside>
 
-    <!-- Product information -->
-    <section class="product-header">
+    <!-- Producrt Details -->
+    <div class="detail-page">
 
-        <div class="detail-image-placeholder">
-            <span></span>
-        </div>
+        <!-- Product information -->
+        <section class="product-header">
 
-        <div class="detail-information">
-            <h1>
-                @Model.ProductInfo.Name /
-                €@Model.ProductInfo.DefaultPrice()
-            </h1>
-
-            <p class="detail-description">
-                @Model.ProductInfo.Description
-            </p>
-
-            <div class="allergens">
-                <strong>Allergenen:</strong>
-                Gluten, melk
-            </div>
-        </div>
-
-    </section>
-
-
-    <!-- Variants -->
-    <div class="variant-grid">
-    @foreach (var variant in Model.ProductInfo.Variants)
-    {
-        <button type="button" class="variant-card btn" id="variant-@variant.VariantId"
-                onclick="selectVariant('@variant.VariantId')">
-
-            <div class="variant-image-placeholder">
+            <div class="detail-image-placeholder">
                 <span></span>
             </div>
 
-            <span class="variant-name">
-                @variant.Description
+            <div class="detail-information">
+                <h1>
+                    @Model.ProductInfo.Product.Name /
+                    €@Model.ProductInfo.DefaultPrice()
+                </h1>
+
+                <p class="detail-description">
+                    @Model.ProductInfo.Product.Description
+                </p>
+
+                <div class="allergens">
+                    <strong>Allergenen:</strong>
+                    Gluten, melk
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- Variants -->
+        <div class="variant-grid">
+        @foreach (var variant in Model.ProductInfo.Product.Variants)
+        {
+            <button type="button" class="variant-card btn" id="variant-@variant.VariantId"
+                    onclick="selectVariant('@variant.VariantId')">
+
+                <div class="variant-image-placeholder">
+                    <span></span>
+                </div>
+
+                <span class="variant-name">
+                    @variant.Description
+                </span>
+
+                <span class="variant-price">
+                    €@variant.Price.ToString("0.00")
+                </span>
+
+            </button>
+        }
+        </div>
+
+
+        <!-- Bottom controls -->
+        <section class="detail-actions">
+
+            <span class="quantity-control">
+                <button type="button"
+                        class="quantity-button">
+                    −
+                </button>
+
+                <span class="quantity">1</span>
+
+                <button type="button"
+                        class="quantity-button">
+                    +
+                </button>
             </span>
 
-            <span class="variant-price">
-                €@variant.Price.ToString("0.00")
-            </span>
 
-        </button>
-    }
+            <button type="button" class="add-detail-cart">
+                <span class="price">€@Model.ProductInfo.DefaultPrice()</span>
+                <span class="add-icon">+</span>
+            </button>
+
+        </section>
+
     </div>
 
-
-    <!-- Bottom controls -->
-    <section class="detail-actions">
-
-        <span class="quantity-control">
-            <button type="button"
-                    class="quantity-button">
-                −
-            </button>
-
-            <span class="quantity">1</span>
-
-            <button type="button"
-                    class="quantity-button">
-                +
-            </button>
-        </span>
-
-
-        <button type="button" class="add-detail-cart">
-            <span class="price">$@Model.ProductInfo.DefaultPrice()</span>
-            <span class="add-icon">+</span>
-        </button>
-
-    </section>
-
-</div>
+</main>

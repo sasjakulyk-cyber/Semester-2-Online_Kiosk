@@ -1,62 +1,67 @@
 ﻿@page
 @model OnlineKiosk_UI.Pages.IndexModel
 @{
-    ViewData["Title"] = "Bestelkiosk";
+    ViewData["Title"] = "Orderkiosk";
 }
 
-<!-- Categories -->
-<aside class="category-sidebar">
-    <header class="topbar">
-        <h1>Category</h1>
-    </header>
+<main class="kiosk-content">
+    
+    <!-- Categories -->
+    <aside class="category-sidebar">
+        <header class="topbar">
+            <h1>Category</h1>
+        </header>
 
-    @foreach (var category in Model.Categories)
-    {
-        <form method="get" asp-page="Index">
-			<div class="category-name">
-				@category.Name
-                <button class="category-button @(category.IsActive ? "active" : "")"
-                        type="submit"
-                        name="ActiveCategoryId"
-                        value="@category.CategoryId"
-                        aria-label="@category.Name">
-                    <span class="category-placeholder"></span>
-                </button>
-            </div>
-        </form>
-    }
-</aside>
-
-<!-- Products -->
-<section class="product-grid">
-
-	@foreach (var product in Model.Products)
-    {
-        <form method="get" asp-page="/DetailsPage" asp-route-id="@product.ProductId">
-            <article class="product-card"
-                     onclick="this.closest('form').submit()"
-                     onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); this.closest('form').submit(); }">
-
-                <a href="#" class="product-image-link">
-                    <div class="product-image-placeholder">
-                        <span></span>
-                    </div>
-                </a>
-
-                <div class="product-info">
-                    <div>
-                        <h2 class="product-name">@product.Name</h2>
-                        <p class="product-price">€ @product.DefaultPrice()</p>
-                        <p class="product-vdescr">@product.DefaultVariantDescription()</p>
-                    </div>
-
-                    <button class="add-cart-button"
-                            type="button">
-                        Add To Cart
+        @foreach (var category in Model.Categories)
+        {
+            <form method="get" asp-page="Index">
+			    <div class="category-name">
+				    @category.Name
+                    <button class="category-button @(category.IsActive ? "active" : "")"
+                            type="submit"
+                            name="ActiveCategoryId"
+                            value="@category.CategoryId"
+                            aria-label="@category.Name">
+                        <span class="category-placeholder"></span>
                     </button>
                 </div>
+            </form>
+        }
+    </aside>
 
-            </article>
-        </form>
-	}
-</section>
+    <!-- Products -->
+    <section class="product-grid">
+
+	    @foreach (var product in Model.Products)
+        {
+            <form method="get" asp-page="/DetailsPage" asp-route-id="@product.Product.ProductId">
+                <article class="product-card"
+                         onclick="this.closest('form').submit()"
+                         onkeydown="if(event.key==='Enter' || event.key===' ') { event.preventDefault(); this.closest('form').submit(); }">
+
+                    <a href="#" class="product-image-link">
+                        <div class="product-image-placeholder">
+                            <span></span>
+                        </div>
+                    </a>
+
+                    <div class="product-info">
+                        <div>
+                            <h2 class="product-name">@product.Product.Name</h2>
+							<!-- Display the default variant -->
+                            <p class="product-price">€ @product.DefaultPrice()</p>
+                            <p class="product-vdescr">@product.DefaultVariantDescription()</p>
+                        </div>
+
+                        <button class="add-cart-button"
+                                type="button">
+                            Add To Cart
+                        </button>
+                    </div>
+
+                </article>
+            </form>
+	    }
+    </section>
+
+</main>

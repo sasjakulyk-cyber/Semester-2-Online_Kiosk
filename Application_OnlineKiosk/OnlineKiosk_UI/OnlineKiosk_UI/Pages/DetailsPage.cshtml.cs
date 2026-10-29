@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineKiosk_Domain.Interfaces;
 using OnlineKiosk_Domain.Data;
-using OnlineKiosk_Logic;
+using OnlineKiosk_Logic.Models;
 
 namespace OnlineKiosk_UI.Pages
 {

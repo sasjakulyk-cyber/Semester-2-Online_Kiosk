@@ -10,6 +10,16 @@
 
         public List<ProductVariant> Variants { get; private set; }
 
+        public Product(int productId)
+        {
+            ProductId = productId;
+            Name = "";
+            Description = "";
+            ImageURL = "";
+            Allergens = new List<string>();
+            Variants = new List<ProductVariant>();
+        }
+
         public Product(int productId, string name, string description, string imageURL)
         {
             ProductId = productId;
@@ -24,5 +34,7 @@
             var variant = new ProductVariant(variantId, description, price, this);
             Variants.Add(variant);
         }
+
+        //ToDo: Add functions to access a sigle variant ( product.Variants[0] to become product.Variant() with verification of a single variant item)
     }
 }

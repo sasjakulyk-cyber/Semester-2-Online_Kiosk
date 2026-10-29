@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OnlineKiosk_Domain.Data;
 
-namespace OnlineKiosk_Logic
+namespace OnlineKiosk_Logic.Models
 {
     public class ProductModel
     {

@@ -20,5 +20,13 @@ namespace OnlineKiosk_Domain.Data
             Price = price;
             this.product = product;
         }
+
+        public ProductVariant(int variantId, string description, decimal price, int productId)
+        {
+            VariantId = variantId;
+            Description = description;
+            Price = price;
+            this.product = new Product(productId);
+        }
     }
 }

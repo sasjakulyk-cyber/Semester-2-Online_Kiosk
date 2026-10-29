@@ -12,6 +12,10 @@
     <header class="topbar">
         <h1>Online Kiosk</h1>
 
+            <a class="pill-button" asp-page="/Index" >
+                Back to catalog
+            </a>
+
         <div class="topbar-actions">
             <a class="pill-button" asp-page="/Account/Login">
                 Sign in
@@ -25,9 +29,7 @@
     </header>
 
     <div class="kiosk-page">
-        <main class="kiosk-content">
-            @RenderBody()
-        </main>
+        @RenderBody()
     </div>
 
     <footer class="border-top footer text-muted">

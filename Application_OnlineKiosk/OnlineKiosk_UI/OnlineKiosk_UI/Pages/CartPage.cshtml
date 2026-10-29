@@ -1,0 +1,133 @@
+﻿@page
+@model OnlineKiosk_UI.Pages.CartPageModel
+@{
+	ViewData["Title"] = "Your Cart";
+}
+
+
+<div class="cart-page">
+
+    <h1 class="cart-title">Your cart</h1>
+
+    <div class="cart-layout">
+
+        <!-- Products in Cart -->
+        <section class="cart-products">
+
+            @if (!Model.Cart.Items.Any())
+            {
+                <p>Your cart is empty.</p>
+            }
+            else
+            {
+                @foreach (var item in Model.Cart.Items)
+                {
+                    var product = Model.getProductByCartItem(item);
+                    var variant = product.Variants[0];
+
+                    <article class="cart-product">
+
+                        <!-- Image placeholder -->
+                        <div class="cart-image">
+                            <span class="cart-cross"></span>
+                        </div>
+
+                        <div class="cart-product-info">
+
+                            <div>
+                                <h2>@(product.Name)</h2>
+
+                                <p class="cart-variant">
+                                    @variant.Description
+                                </p>
+                            </div>
+
+                            <div class="cart-product-bottom">
+
+                                <span class="cart-price">
+                                    €@(item.SubTotal().ToString())
+                                </span>
+
+                                <div class="cart-quantity">
+
+                                    <form method="post"
+                                          asp-page-handler="Decrease">
+
+                                        <input type="hidden"
+                                               name="variantId"
+                                               value="@variant.VariantId" />
+
+                                        <button type="submit"
+                                                aria-label="Decrease quantity">
+                                            −
+                                        </button>
+                                    </form>
+                                    <span>@item.Quantity</span>
+
+                                    <form method="post"
+                                          asp-page-handler="Increase">
+
+                                        <input type="hidden"
+                                               name="variantId"
+                                               value="@variant.VariantId" />
+
+                                        <button type="submit"
+                                                disabled="@(item.Quantity >= 99)"
+                                                aria-label="Increase quantity">
+                                            +
+                                        </button>
+                                    </form>
+
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </article>
+                }
+            }
+
+        </section>
+
+        <!-- Order summary -->
+        <aside class="cart-summary">
+
+            <h2>Order summary</h2>
+
+            <div class="cart-summary-prices">
+
+                <p>
+                    Subtotal:
+                    €@Model.Subtotal.ToString()
+                </p>
+
+                <p>
+                    Discounts:
+                    €@Model.Discount.ToString()
+                </p>
+
+            </div>
+
+            <div class="cart-summary-footer">
+
+                <p class="cart-total">
+                    Total: €@Model.Total.ToString()
+                </p>
+
+                <form method="post"
+                      asp-page-handler="Confirm">
+
+                    <button type="submit"
+                            class="cart-confirm-btn"
+                            disabled="@(!Model.Cart.Items.Any())">
+                        Confirm order
+                    </button>
+
+                </form>
+
+            </div>
+
+        </aside>
+
+    </div>
+</div>

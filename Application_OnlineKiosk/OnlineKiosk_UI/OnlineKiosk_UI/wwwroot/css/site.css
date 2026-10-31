@@ -370,7 +370,7 @@ body {
     }
 
     .variant-card.selected {
-        border-color: #9b9200;
+        border-color: #000000;
         background: #f7f7f7;
     }
 
@@ -432,7 +432,6 @@ body {
     background: #ffffff;
     font-size: 25px;
 }
-
 
 /* Add to cart */
 
@@ -625,8 +624,11 @@ body {
     gap: 10px;
 }
 
-.cart-price {
+.cart-price{
     font-size: 19px;
+}
+.cart-subtotal {
+    font-size: 19px !important;
 }
 
 /* Quantity controls */

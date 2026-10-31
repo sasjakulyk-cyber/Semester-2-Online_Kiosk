@@ -30,7 +30,7 @@ namespace OnlineKiosk_UI.Pages
         public IActionResult OnPostIncrease(int variantId)
         {
             _cartService.IncreaseQuantity(variantId, 1);
-            return RedirectToPage();
+            return QuantityUpdateResult(variantId);
         }
 
         public IActionResult OnPostDecrease(int variantId)
@@ -42,7 +42,25 @@ namespace OnlineKiosk_UI.Pages
                 _cartService.RemoveItem(variantId);
             }
 
-            return RedirectToPage();
+            return QuantityUpdateResult(variantId);
+        }
+
+        private JsonResult QuantityUpdateResult(int variantId)
+        {
+            var cart = _cartService.GetCart();
+            var item = cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            var subtotal = cart.Items.Sum(item => item.SubTotal());
+
+            return new JsonResult(new
+            {
+                variantId,
+                quantity = item?.Quantity ?? 0,
+                itemSubtotal = item?.SubTotal() ?? 0,
+                subtotal,
+                total = subtotal - Discount,
+                removed = item is null,
+                isEmpty = cart.Items.Count == 0
+            });
         }
 
         public IActionResult OnPostConfirm()

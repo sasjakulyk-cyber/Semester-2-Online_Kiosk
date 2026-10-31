@@ -25,7 +25,7 @@
                     var product = Model.getProductByCartItem(item);
                     var variant = product.Variants[0];
 
-                    <article class="cart-product">
+                    <article class="cart-product" data-cart-item="@variant.VariantId">
 
                         <!-- Image placeholder -->
                         <div class="cart-image">
@@ -45,12 +45,13 @@
                             <div class="cart-product-bottom">
 
                                 <span class="cart-price">
-                                    €@(item.SubTotal().ToString())
+                                    €@(item.Price.ToString())
                                 </span>
 
                                 <div class="cart-quantity">
 
                                     <form method="post"
+                                          class="quantity-form"
                                           asp-page-handler="Decrease">
 
                                         <input type="hidden"
@@ -62,9 +63,11 @@
                                             −
                                         </button>
                                     </form>
-                                    <span>@item.Quantity</span>
+
+                                    <span class="cart-item-quantity">@item.Quantity</span>
 
                                     <form method="post"
+                                          class="quantity-form"
                                           asp-page-handler="Increase">
 
                                         <input type="hidden"
@@ -72,11 +75,16 @@
                                                value="@variant.VariantId" />
 
                                         <button type="submit"
+                                                class="quantity-increase-button"
                                                 disabled="@(item.Quantity >= 99)"
                                                 aria-label="Increase quantity">
                                             +
                                         </button>
                                     </form>
+
+                                    <span class="cart-price cart-subtotal cart-item-subtotal">
+                                        €@(item.SubTotal().ToString())
+                                    </span>
 
                                 </div>
 
@@ -98,7 +106,7 @@
 
                 <p>
                     Subtotal:
-                    €@Model.Subtotal.ToString()
+                    <span class="cart-subtotal-value">€@Model.Subtotal.ToString()</span>
                 </p>
 
                 <p>
@@ -111,7 +119,7 @@
             <div class="cart-summary-footer">
 
                 <p class="cart-total">
-                    Total: €@Model.Total.ToString()
+                    Total: <span class="cart-total-value">€@Model.Total.ToString()</span>
                 </p>
 
                 <form method="post"

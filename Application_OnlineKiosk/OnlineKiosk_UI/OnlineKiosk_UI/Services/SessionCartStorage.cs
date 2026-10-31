@@ -22,13 +22,13 @@ namespace OnlineKiosk_UI.Services
 
         public List<CartItem> GetCart()
         {
-            List<CartItem> list = new List<CartItem>();
-            list.Add(new CartItem(0, 1, 2, 5.00m));
-            list.Add(new CartItem(0, 2, 3, 10.00m));
-            list.Add(new CartItem(0, 3, 1, 15.00m));
-            return list;
-            //return Session.GetObject<List<CartItem>>("Cart")
-            //    ?? new List<CartItem>();
+            //List<CartItem> list = new List<CartItem>();
+            //list.Add(new CartItem(0, 1, 2, 5.00m));
+            //list.Add(new CartItem(0, 2, 3, 10.00m));
+            //list.Add(new CartItem(0, 3, 1, 15.00m));
+            //return list;
+            return Session.GetObject<List<CartItem>>("Cart")
+                ?? new List<CartItem>();
         }
 
         public void SaveCart(List<CartItem> items)

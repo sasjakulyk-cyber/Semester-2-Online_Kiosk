@@ -60,8 +60,14 @@
         <div class="variant-grid">
         @foreach (var variant in Model.ProductInfo.Product.Variants)
         {
-            <button type="button" class="variant-card btn" id="variant-@variant.VariantId"
-                    onclick="selectVariant('@variant.VariantId')">
+            <div type="button" id="variant-@variant.VariantId"
+                    onclick="selectVariant('@variant.VariantId')" 
+                    @if (variant == Model.ProductInfo.GetDefaultVariant()) {
+                        @:class="variant-card btn selected"
+                    }else
+                    {
+                        @:class="variant-card btn" 
+                    }>
 
                 <div class="variant-image-placeholder">
                     <span></span>
@@ -75,33 +81,39 @@
                     €@variant.Price.ToString("0.00")
                 </span>
 
-            </button>
+            </div>
         }
         </div>
 
 
         <!-- Bottom controls -->
         <section class="detail-actions">
+            <form method="post" asp-page-handler="AddToCart">
+                <input type="hidden"
+                       name="variantId"
+                       value="@Model.ProductInfo.GetDefaultVariant()?.VariantId" />
+                <input type="hidden" name="quantity" value="1" />
 
-            <span class="quantity-control">
-                <button type="button"
-                        class="quantity-button">
-                    −
+                <span class="quantity-control">
+                    <button type="button"
+                            class="quantity-button" onclick="decreaseCount()">
+                        −
+                    </button>
+
+                    <span class="quantity">1</span>
+
+                    <button type="button"
+                            class="quantity-button" onclick="increaseCount()">
+                        +
+                    </button>
+                </span>
+
+
+                <button type="submit" class="add-detail-cart">
+                    <span class="price">€@Model.ProductInfo.DefaultPrice()</span>
+                    <span class="add-icon">+</span>
                 </button>
-
-                <span class="quantity">1</span>
-
-                <button type="button"
-                        class="quantity-button">
-                    +
-                </button>
-            </span>
-
-
-            <button type="button" class="add-detail-cart">
-                <span class="price">€@Model.ProductInfo.DefaultPrice()</span>
-                <span class="add-icon">+</span>
-            </button>
+            </form>
 
         </section>
 

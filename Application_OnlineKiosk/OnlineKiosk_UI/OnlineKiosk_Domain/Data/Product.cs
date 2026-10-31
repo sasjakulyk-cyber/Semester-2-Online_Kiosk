@@ -7,7 +7,7 @@
         public string Description { get; private set; }
         public string ImageURL { get; private set; }
         public List<string> Allergens { get; private set; }
-
+        // ToDo: make variand a part of product without list
         public List<ProductVariant> Variants { get; private set; }
 
         public Product(int productId)

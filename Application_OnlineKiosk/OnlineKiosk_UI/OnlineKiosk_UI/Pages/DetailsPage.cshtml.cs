@@ -10,14 +10,16 @@ namespace OnlineKiosk_UI.Pages
     {
         private readonly ILogger<DetailsPageModel> _logger;
         private readonly IProductService _productservice;
+        private readonly ICartService _cartService;
 
         public List<Category> Categories { get; set; } = new List<Category>();
         public ProductModel ProductInfo { get; set; }
 
-        public DetailsPageModel(ILogger<DetailsPageModel> logger, IProductService productservice)
+        public DetailsPageModel(ILogger<DetailsPageModel> logger, IProductService productservice, ICartService cartService)
         {
             _logger = logger;
             _productservice = productservice;
+            _cartService = cartService;
         }
         public IActionResult OnGet(int id)
         {
@@ -35,6 +37,24 @@ namespace OnlineKiosk_UI.Pages
                 return RedirectToPage("/Index");
             }
             return Page();
+        }
+
+        public IActionResult OnPostAddToCart(int variantId, int quantity)
+        {
+            if (quantity <= 0)
+            {
+                _logger.LogWarning($"Invalid quantity {quantity} for variant ID {variantId}.");
+                // Handle invalid quantity
+                return RedirectToPage();
+            }
+            if (variantId <= 0)
+            {
+                _logger.LogWarning($"Invalid variant ID {variantId}.");
+                // Handle invalid quantity
+                return RedirectToPage();
+            }
+            _cartService.IncreaseQuantity(variantId, quantity);
+            return RedirectToPage("/Index");
         }
     }
 }

@@ -59,6 +59,7 @@
                                                value="@variant.VariantId" />
 
                                         <button type="submit"
+                                                onclick="@(item.Quantity == 1 ? "return confirm('Are you sure you want to remove this product from your cart?');" : null)"
                                                 aria-label="Decrease quantity">
                                             −
                                         </button>

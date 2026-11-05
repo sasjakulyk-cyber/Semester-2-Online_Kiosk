@@ -67,6 +67,7 @@ namespace OnlineKiosk_UI.Pages
         {
             if (Cart.Items.Count == 0)
             {
+                //ToDo: send message there are no items in the cart.
                 return RedirectToPage();
             }
 

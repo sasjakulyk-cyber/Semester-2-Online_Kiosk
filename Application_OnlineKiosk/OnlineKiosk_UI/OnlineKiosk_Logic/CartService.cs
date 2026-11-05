@@ -11,6 +11,7 @@ namespace OnlineKiosk_Logic
 {
     public class CartService : ICartService
     {
+        private const int MaxQuantity = 99;
         private readonly ICartRepository _cartRepository;
         private readonly ICartStorage _cartStorage;
         private readonly Cart _cart;
@@ -32,14 +33,18 @@ namespace OnlineKiosk_Logic
             var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
             if (itemToRemove != null)
             {
-                itemToRemove.IncreaseQuantity(quantity);
+                var quantityToAdd = Math.Min(quantity, MaxQuantity - itemToRemove.Quantity);
+                if (quantityToAdd > 0)
+                {
+                    itemToRemove.IncreaseQuantity(quantityToAdd);
+                }
             }
             else
             {
                 var productVariant = _cartRepository.GetProductVariantById(variantId);
                 if (productVariant != null)
                 {
-                    var newItem = new CartItem(0, variantId, quantity, productVariant.Price);
+                    var newItem = new CartItem(0, variantId, Math.Min(quantity, MaxQuantity), productVariant.Price);
                     _cart.Items.Add(newItem);
                 }
                 else

@@ -11,7 +11,7 @@ namespace OnlineKiosk_Logic
 {
     public class CartService : ICartService
     {
-        private const int MaxQuantity = 99;
+        private const int MaxQuantity = 99; //ToDo: Make uppercase
         private readonly ICartRepository _cartRepository;
         private readonly ICartStorage _cartStorage;
         private readonly Cart _cart;
@@ -31,6 +31,7 @@ namespace OnlineKiosk_Logic
         public void IncreaseQuantity(int variantId, int quantity = 1)
         {
             var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            // If the item already exists in the cart, increase its quantity, but do not exceed MaxQuantity
             if (itemToRemove != null)
             {
                 var quantityToAdd = Math.Min(quantity, MaxQuantity - itemToRemove.Quantity);
@@ -41,8 +42,9 @@ namespace OnlineKiosk_Logic
             }
             else
             {
+                // If the item does not exist in the cart, add it with the specified quantity, but do not exceed MaxQuantity
                 var productVariant = _cartRepository.GetProductVariantById(variantId);
-                if (productVariant != null)
+                if (productVariant != null) // Ensure the product variant exists
                 {
                     var newItem = new CartItem(0, variantId, Math.Min(quantity, MaxQuantity), productVariant.Price);
                     _cart.Items.Add(newItem);
@@ -80,6 +82,7 @@ namespace OnlineKiosk_Logic
         public void RemoveItem(int variantId)
         {
             var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            // If the item exists in the cart, remove it
             if (itemToRemove != null)
             {
                 _cart.Items.Remove(itemToRemove);
@@ -103,7 +106,7 @@ namespace OnlineKiosk_Logic
             _cartStorage.ClearCart();
         }
 
-        public Product getProductByCartItem(CartItem cartItem)
+        public Product GetProductByCartItem(CartItem cartItem)
         {
             if (_products.TryGetValue(cartItem.VariantId, out var product))
             {
@@ -127,7 +130,7 @@ namespace OnlineKiosk_Logic
 
         public decimal GetTotal()
         {
-            return GetSubtotal() /*- Discount*/;
+            return GetSubtotal() /*- ToDo: Apply Discount*/;
         }
     }
 }

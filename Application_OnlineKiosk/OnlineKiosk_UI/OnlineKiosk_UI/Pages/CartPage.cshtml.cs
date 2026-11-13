@@ -76,9 +76,9 @@ namespace OnlineKiosk_UI.Pages
             return RedirectToPage();
         }
 
-        public Product getProductByCartItem(CartItem cartItem)
+        public Product GetProductByCartItem(CartItem cartItem)
         {
-            return _cartService.getProductByCartItem(cartItem);
+            return _cartService.GetProductByCartItem(cartItem);
         }
     }
 }

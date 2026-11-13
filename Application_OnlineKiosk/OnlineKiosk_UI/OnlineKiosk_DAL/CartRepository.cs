@@ -127,7 +127,7 @@ namespace OnlineKiosk_DAL
                                 "       pv.Id as VariantId, pv.variantDescription as VariantDescription, pv.Price as Price " +
                             "FROM [dbo].[Product] as p " +
                             "INNER JOIN [dbo].[ProductVariant] as pv ON p.Id = pv.ProductId " +
-                            "WHERE pv.Id IN (" + string.Join(",", cartItems.Select(i => i.VariantId)) + ")"; //rework
+                            "WHERE pv.Id IN (" + string.Join(",", cartItems.Select(i => i.VariantId)) + ")"; //ToDo: Use parameterized query to prevent SQL injection
                     using var command = new SqlCommand(query, connection);
                     using var reader = command.ExecuteReader();
                     while (reader.Read())

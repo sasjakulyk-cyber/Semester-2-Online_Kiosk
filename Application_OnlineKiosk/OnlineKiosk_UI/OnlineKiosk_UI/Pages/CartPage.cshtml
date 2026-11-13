@@ -22,7 +22,7 @@
             {
                 @foreach (var item in Model.Cart.Items)
                 {
-                    var product = Model.getProductByCartItem(item);
+                    var product = Model.GetProductByCartItem(item);
                     var variant = product.Variants[0];
 
                     <article class="cart-product" data-cart-item="@variant.VariantId">

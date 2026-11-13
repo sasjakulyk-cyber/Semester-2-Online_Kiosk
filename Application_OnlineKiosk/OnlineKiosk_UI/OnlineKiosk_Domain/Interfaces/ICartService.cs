@@ -14,7 +14,7 @@ namespace OnlineKiosk_Domain.Interfaces
         public void RemoveItem(int variantId);
         public void SaveCart();
         public void CompleteOrder();
-        public Product getProductByCartItem(CartItem cartItem);
+        public Product GetProductByCartItem(CartItem cartItem);
         public Cart GetCart();
         public decimal GetSubtotal();
         public decimal GetTotal();

@@ -1,5 +1,5 @@
-﻿using OnlineKiosk_Domain.Data;
-using OnlineKiosk_Domain.Interfaces;
+﻿using OnlineKiosk_Logic.Data;
+using OnlineKiosk_Logic.Interfaces;
 
 namespace OnlineKiosk_UnitTestLogic.Mocks
 {

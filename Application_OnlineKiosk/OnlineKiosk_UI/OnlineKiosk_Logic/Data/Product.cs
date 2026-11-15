@@ -1,4 +1,4 @@
-﻿namespace OnlineKiosk_Domain.Data
+﻿namespace OnlineKiosk_Logic.Data
 {
     public class Product
     {

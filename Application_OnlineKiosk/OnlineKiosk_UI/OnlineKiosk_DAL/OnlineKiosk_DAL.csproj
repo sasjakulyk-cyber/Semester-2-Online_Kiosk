@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OnlineKiosk_Domain\OnlineKiosk_Domain.csproj" />
+    <ProjectReference Include="..\OnlineKiosk_Logic\OnlineKiosk_Logic.csproj" />
   </ItemGroup>
 
 </Project>

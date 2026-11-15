@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineKiosk_Domain.Data
+namespace OnlineKiosk_Logic.Data
 {
     public class CartItem
     {

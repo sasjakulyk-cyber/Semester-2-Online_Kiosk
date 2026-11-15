@@ -1,11 +1,11 @@
-﻿using OnlineKiosk_Domain.Data;
+﻿using OnlineKiosk_Logic.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnlineKiosk_Domain.Interfaces
+namespace OnlineKiosk_Logic.Interfaces
 {
     public interface IProductService
     {

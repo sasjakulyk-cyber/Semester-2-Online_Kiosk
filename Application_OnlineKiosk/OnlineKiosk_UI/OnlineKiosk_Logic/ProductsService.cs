@@ -1,5 +1,5 @@
-﻿using OnlineKiosk_Domain.Data;
-using OnlineKiosk_Domain.Interfaces;
+﻿using OnlineKiosk_Logic.Data;
+using OnlineKiosk_Logic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;

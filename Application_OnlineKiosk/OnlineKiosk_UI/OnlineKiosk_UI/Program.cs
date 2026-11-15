@@ -1,7 +1,6 @@
-using OnlineKiosk_Domain;
 using OnlineKiosk_DAL;
 using OnlineKiosk_Logic;
-using OnlineKiosk_Domain.Interfaces;
+using OnlineKiosk_Logic.Interfaces;
 using OnlineKiosk_UI.Services;
 
 namespace OnlineKiosk_UI

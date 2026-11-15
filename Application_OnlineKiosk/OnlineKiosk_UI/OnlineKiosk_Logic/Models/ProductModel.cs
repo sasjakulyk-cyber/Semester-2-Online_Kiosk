@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OnlineKiosk_Domain.Data;
+using OnlineKiosk_Logic.Data;
 
 namespace OnlineKiosk_Logic.Models
 {

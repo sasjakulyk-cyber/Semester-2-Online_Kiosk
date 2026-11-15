@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OnlineKiosk_Domain.Interfaces;
-using OnlineKiosk_Domain.Data;
+using OnlineKiosk_Logic.Interfaces;
+using OnlineKiosk_Logic.Data;
 using System.ComponentModel.Design;
 
 namespace OnlineKiosk_Logic

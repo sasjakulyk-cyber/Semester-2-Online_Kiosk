@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using OnlineKiosk_Domain.Data;
-using OnlineKiosk_Domain.Interfaces;
+using OnlineKiosk_Logic.Data;
+using OnlineKiosk_Logic.Interfaces;
 using OnlineKiosk_UI.Extensions;
 
 namespace OnlineKiosk_UI.Services

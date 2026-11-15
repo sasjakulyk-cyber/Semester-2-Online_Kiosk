@@ -30,14 +30,14 @@ namespace OnlineKiosk_Logic
 
         public void IncreaseQuantity(int variantId, int quantity = 1)
         {
-            var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            var doesItemExist = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
             // If the item already exists in the cart, increase its quantity, but do not exceed MaxQuantity
-            if (itemToRemove != null)
+            if (doesItemExist != null)
             {
-                var quantityToAdd = Math.Min(quantity, MaxQuantity - itemToRemove.Quantity);
+                var quantityToAdd = Math.Min(quantity, MaxQuantity - doesItemExist.Quantity);
                 if (quantityToAdd > 0)
                 {
-                    itemToRemove.IncreaseQuantity(quantityToAdd);
+                    doesItemExist.IncreaseQuantity(quantityToAdd);
                 }
             }
             else
@@ -61,11 +61,11 @@ namespace OnlineKiosk_Logic
 
         public bool DecreaseQuantity(int variantId, int quantity = 1)
         {
-            var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
-            if (itemToRemove != null)
+            var doesItemExist = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            if (doesItemExist != null)
             {
-                itemToRemove.DecreaseQuantity(quantity);
-                if (!itemToRemove.needToRemove()) // Need to remove from cart if quantity is 0 or less
+                doesItemExist.DecreaseQuantity(quantity);
+                if (!doesItemExist.needToRemove()) // Need to remove from cart if quantity is 0 or less
                 {
                     // ToDo: Check if we need to save cart after cart change or SaveCart() should be called in the UI after all changes are made.
                     SaveCart();
@@ -81,11 +81,11 @@ namespace OnlineKiosk_Logic
 
         public void RemoveItem(int variantId)
         {
-            var itemToRemove = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
+            var doesItemExist = _cart.Items.FirstOrDefault(item => item.VariantId == variantId);
             // If the item exists in the cart, remove it
-            if (itemToRemove != null)
+            if (doesItemExist != null)
             {
-                _cart.Items.Remove(itemToRemove);
+                _cart.Items.Remove(doesItemExist);
                 // ToDo: Check if we need to save cart after cart change or SaveCart() should be called in the UI after all changes are made.
                 SaveCart();
             }

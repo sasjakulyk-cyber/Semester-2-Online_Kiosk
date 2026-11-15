@@ -2,13 +2,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineKiosk_Logic.Data;
 using OnlineKiosk_Logic.Interfaces;
+using OnlineKiosk_Logic;
 using System.Linq;
 
 namespace OnlineKiosk_UI.Pages
 {
     public class CartPageModel : PageModel
     {
-        private readonly ICartService _cartService;
+        private readonly CartService _cartService;
 
         public Cart Cart{ get; set; }
 
@@ -16,9 +17,9 @@ namespace OnlineKiosk_UI.Pages
         public decimal Discount { get; set; } = 0;
         public decimal Total => Subtotal - Discount;
 
-        public CartPageModel(ICartService cartService)
+        public CartPageModel(ICartRepository cartRepository, ICartStorage cartStorage)
         {
-            _cartService = cartService;
+            _cartService = new CartService(cartRepository, cartStorage);
             Cart = _cartService.GetCart();
             Subtotal = Cart.Items.Sum(p => p.SubTotal());
         }

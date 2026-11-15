@@ -3,13 +3,14 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineKiosk_Logic.Interfaces;
 using OnlineKiosk_Logic.Data;
 using OnlineKiosk_Logic.Models;
+using OnlineKiosk_Logic;
 
 namespace OnlineKiosk_UI.Pages
 {
     public class IndexModel : PageModel
     {
         private readonly ILogger<IndexModel> _logger;
-        private readonly IProductService _productService;
+        private readonly ProductsService _productService;
 
         [BindProperty(SupportsGet = true)]
         public int? ActiveCategoryId { get; set; }
@@ -17,10 +18,10 @@ namespace OnlineKiosk_UI.Pages
         public List<Category> Categories { get; set; } = new List<Category>();
         public List<ProductModel> Products { get; set; } = new List<ProductModel>();
 
-        public IndexModel(ILogger<IndexModel> logger, IProductService productService)
+        public IndexModel(ILogger<IndexModel> logger, IProductRepository productRepository)
         {
             _logger = logger;
-            _productService = productService;
+            _productService = new ProductsService(productRepository);
         }
 
         //bool SelectIf(Category c)

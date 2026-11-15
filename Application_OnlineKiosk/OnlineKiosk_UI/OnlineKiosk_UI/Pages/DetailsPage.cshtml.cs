@@ -3,23 +3,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using OnlineKiosk_Logic.Interfaces;
 using OnlineKiosk_Logic.Data;
 using OnlineKiosk_Logic.Models;
+using OnlineKiosk_Logic;
 
 namespace OnlineKiosk_UI.Pages
 {
     public class DetailsPageModel : PageModel
     {
         private readonly ILogger<DetailsPageModel> _logger;
-        private readonly IProductService _productservice;
-        private readonly ICartService _cartService;
+        private readonly ProductsService _productservice;
+        private readonly CartService _cartService;
 
         public List<Category> Categories { get; set; } = new List<Category>();
         public ProductModel ProductInfo { get; set; }
 
-        public DetailsPageModel(ILogger<DetailsPageModel> logger, IProductService productservice, ICartService cartService)
+        public DetailsPageModel(ILogger<DetailsPageModel> logger, IProductRepository productRepository, ICartRepository cartRepository, ICartStorage cartStorage)
         {
             _logger = logger;
-            _productservice = productservice;
-            _cartService = cartService;
+            _productservice = new ProductsService(productRepository);
+            _cartService = new CartService(cartRepository, cartStorage);
         }
         public IActionResult OnGet(int id)
         {

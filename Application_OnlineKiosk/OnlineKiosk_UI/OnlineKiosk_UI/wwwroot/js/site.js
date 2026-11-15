@@ -29,6 +29,15 @@ $(function () {
         const $button = $form.find("button[type='submit']");
         $button.prop("disabled", true);
 
+        const $varId = $form.find("input[name='variantId']").val();
+        const $cartQuantityItem = $form.parent(".cart-quantity");
+        const $quantity = parseInt($cartQuantityItem.find(".cart-item-quantity").text(), 10);
+        if ($form.find("button.quantity-decrease-button").length > 0 && $quantity === 1 && !confirm('Are you sure you want to remove this product from your cart?'))
+        {
+            $button.prop("disabled", false);
+            return;
+        }   
+
         $.ajax({
             url: $form.attr("action"),
             type: "POST",
